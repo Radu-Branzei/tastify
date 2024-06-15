@@ -1,0 +1,34 @@
+<div class="player-bar" *ngIf="isConnected">
+    <div class="track-info">
+        <img [src]="currentTrack?.imageUrl" alt="Album Art" (click)="redirectToTrackPage(currentTrack!.id)">
+        <div class="track-text">
+            <p [title]="currentTrack?.name" (click)="redirectToTrackPage(currentTrack!.id)">{{ currentTrack?.name |
+                truncate:40 }}</p>
+            <div class="artists-area">
+                <p *ngFor="let artist of currentTrack?.artistList; let last = last"
+                    (click)="redirectToArtistPage(artist.id)" class="artist-name" [title]="artist.name">
+                    {{artist.name | truncate:40}}{{ !last ? ',&nbsp;' : '' }}</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress" [style.width.%]="progressBarWidth"></div>
+    </div>
+
+    <div class="buttons">
+        <div class="control-button previous-button" (click)="playPreviousTrack()">
+            <i class="fas fa-backward"></i>
+        </div>
+        <div class="control-button play-pause-button" (click)="togglePlayPause()">
+            <i class="fas" [ngClass]="isPlaying ? 'fa-pause' : 'fa-play'"></i>
+        </div>
+        <div class="control-button next-button" (click)="playNextTrack()">
+            <i class="fas fa-forward"></i>
+        </div>
+    </div>
+
+    <!-- <div class="control-button shuffle-button">
+        <i class="fas fa-random"></i>
+    </div> -->
+</div>

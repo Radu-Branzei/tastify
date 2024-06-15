@@ -1,0 +1,91 @@
+.search-results-container {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    max-width: 1400px;
+    height: auto;
+    margin: 100px auto;
+    background-color: #212121;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.search-results-container-text {
+    text-align: center;
+    color: #1DB954;
+    font-size: 50px;
+}
+
+.artists-found-text,
+.tracks-found-text,
+.users-found-text {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+    color: #fff;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.tracks-found-text,
+.users-found-text {
+    margin-top: 5rem;
+}
+
+.artist-card-grid,
+.track-card-grid,
+.user-card-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.user-card-grid {
+    margin-bottom: 40px;
+}
+
+.artist-found-container,
+.tracks-found-container,
+.user-found-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.arrows {
+    display: flex;
+    flex-direction: row;
+}
+
+.back-arrow,
+.forward-arrow {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 20px;
+    margin-left: 8px;
+}
+
+.back-arrow:hover,
+.forward-arrow:hover {
+    cursor: pointer;
+}
+
+.invalid-arrow {
+    cursor: default !important;
+    color: gray;
+}
+
+.range-info {
+    font-size: 24px;
+    color: gray;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.error-message {
+    font-size: 24px;
+    color: red;
+}

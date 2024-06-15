@@ -1,0 +1,174 @@
+<div class="track-page-container">
+    <div class="track-header">
+        <img class="track-image" [src]="currentTrack?.imageUrl" alt="Track Image">
+        <div class="track-header-text">
+            <p class="track-name" [title]="currentTrack?.name">{{ currentTrack?.name | truncate:30 }}</p>
+            <div class="track-header-info">
+                <div class="track-popularity-container">
+                    <p class="track-popularity">{{ currentTrack?.popularityScore }}</p>
+                    <p class="track-popularity-info">Popularity: 0 - 100</p>
+                </div>
+                <div class="track-duration-container">
+                    <p class="track-duration">{{ convertMillisecondsToMinutesAndSeconds(currentTrack!.duration) }}</p>
+                    <p class="track-duration-info">Track length</p>
+                </div>
+                <div (click)="redirectToSpotifyPage()" class="spotify-link-image">
+                    <img src="../../../assets/images/spotify-logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="track-artists-container">
+        <p class="track-artists-info">Performed by:</p>
+        <div class="track-artists">
+            <div class="arrows">
+                <span (click)="lowerTrackArtistsRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="trackArtistsRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseTrackArtistsRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="trackArtistsRange1 >= trackArtists!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{trackArtistsRange0 + 1}} - {{ (trackArtistsRange1 >
+                    trackArtists!.length) ?
+                    trackArtists!.length :
+                    trackArtistsRange1 }}</p>
+            </div>
+            <div class="track-artists-grid">
+                <div *ngFor="let artist of trackArtists | slice:trackArtistsRange0:trackArtistsRange1">
+                    <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                        [href]="artist.href"></app-artist-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="audio-features-container">
+        <p class="audio-features-info">Audio features</p>
+        <div class="audio-features">
+            <div class="feature-section">
+                <p class="feature-text">Acousticness</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.acousticness * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Danceability</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.danceability * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Energy</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.energy * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Instrumentalness</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.instrumentalness * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Liveness</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.liveness * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Speechiness</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.speechiness * 100) + '%'}"></div>
+                </div>
+            </div>
+
+            <div class="feature-section">
+                <p class="feature-text">Valence</p>
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (trackAudioInfo.valence * 100) + '%'}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="audio-analysis-container">
+        <p class="audio-analysis-info">Audio analysis</p>
+
+        <div class="audio-analysis-grid">
+            <div class="audio-analysis">
+                <div class="analysis-section">
+                    <p class="analysis-section-value">{{ getPitchClass(trackAudioInfo.key) }}</p>
+                    <p class="analysis-section-info">Key</p>
+                </div>
+            </div>
+
+            <div class="audio-analysis">
+                <div class="analysis-section">
+                    <p class="analysis-section-value">{{ trackAudioInfo.tempo }}</p>
+                    <p class="analysis-section-info">BPM</p>
+                </div>
+            </div>
+
+            <div class="audio-analysis">
+                <div class="analysis-section">
+                    <p class="analysis-section-value">{{ trackAudioInfo.loudness }}</p>
+                    <p class="analysis-section-info">Loudness</p>
+                </div>
+            </div>
+
+            <div class="audio-analysis">
+                <div class="analysis-section">
+                    <p class="analysis-section-value">{{ trackAudioInfo.mode == 0 ? "Minor" : "Major" }}</p>
+                    <p class="analysis-section-info">Mode</p>
+                </div>
+            </div>
+
+            <div class="audio-analysis">
+                <div class="analysis-section">
+                    <p class="analysis-section-value">{{ trackAudioInfo.time_signature }}/4</p>
+                    <p class="analysis-section-info">Time Signature</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="users-listening-container">
+        <p class="users-listening-info">Other users listening to this</p>
+        <div class="users-listening">
+            <div *ngIf="usersListening!.length > 0">
+                <div class="arrows">
+                    <div class="arrows">
+                        <span (click)="lowerUsersListeningRange()" class="back-arrow material-symbols-outlined"
+                            [class.invalid-arrow]="usersListeningRange0 == 0">
+                            arrow_back_ios
+                        </span>
+                        <span (click)="increaseUsersListeningRange()" class="forward-arrow material-symbols-outlined"
+                            [class.invalid-arrow]="usersListeningRange1 >= usersListening!.length">
+                            arrow_forward_ios
+                        </span>
+                        <p class="range-info">Showing {{usersListeningRange0 + 1}} - {{ (usersListeningRange1 >
+                            usersListening!.length) ?
+                            usersListening!.length :
+                            usersListeningRange1 }}</p>
+                    </div>
+                </div>
+                <div class="users-listening-grid">
+                    <div *ngFor="let user of usersListening | slice:usersListeningRange0:usersListeningRange1">
+                        <app-user-card [userId]="user.id" [imageUrl]="user.imageUrl" [name]="user.name"></app-user-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="usersListening!.length == 0">
+                <p class="no-users-message">There are no other users listening to this.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="search-results-container">
+    <h1 class="search-results-container-text">Search results for: "{{searchInput}}"</h1>
+
+    <div class="artists-found-container">
+        <h3 class="artists-found-text">Artists found</h3>
+        <div *ngIf="artistsFound!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerArtistsFoundRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="artistsFoundRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseArtistsFoundRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="artistsFoundRange1 >= artistsFound!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{artistsFoundRange0 + 1}} - {{ (artistsFoundRange1 >
+                    artistsFound!.length) ?
+                    artistsFound!.length :
+                    artistsFoundRange1 }}</p>
+            </div>
+            <div class="artist-card-grid">
+                <div *ngFor="let artist of artistsFound | slice:artistsFoundRange0:artistsFoundRange1">
+                    <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                        [href]="artist.href" [@fadeIn]></app-artist-card>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="artistsFound!.length == 0">
+            <p class="error-message">No artists found.</p>
+        </div>
+    </div>
+
+    <div class="tracks-found-container">
+        <h3 class="tracks-found-text">Tracks found</h3>
+        <div *ngIf="tracksFound!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerTracksFoundRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="tracksFoundRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseTracksFoundRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="tracksFoundRange1 >= tracksFound!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{tracksFoundRange0 + 1}} - {{ (tracksFoundRange1 >
+                    tracksFound!.length) ?
+                    tracksFound!.length :
+                    tracksFoundRange1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of tracksFound | slice:tracksFoundRange0:tracksFoundRange1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeIn]></app-song-card>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tracksFound!.length == 0">
+            <p class="error-message">No tracks found.</p>
+        </div>
+    </div>
+
+    <div class="users-found-container">
+        <h3 class="users-found-text">Users found</h3>
+        <div *ngIf="usersFound!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerUsersFoundRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="usersFoundRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseUsersFoundRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="usersFoundRange1 >= usersFound!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{usersFoundRange0 + 1}} - {{ (usersFoundRange1 >
+                    usersFound!.length) ?
+                    usersFound!.length :
+                    usersFoundRange1 }}</p>
+            </div>
+            <div class="user-card-grid">
+                <div *ngFor="let user of usersFound">
+                    <app-user-card [userId]="user.id" [imageUrl]="user.imageUrl" [name]="user.name"
+                        [@fadeIn]></app-user-card>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="usersFound!.length == 0">
+            <p class="error-message">No users found.</p>
+        </div>
+    </div>
+</div>

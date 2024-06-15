@@ -1,0 +1,109 @@
+.top-info-container-text {
+    text-align: center;
+    color: #1DB954;
+    font-size: 50px;
+}
+
+.artist-card-grid,
+.track-card-grid {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 35px;
+}
+
+.song-card-grid,
+.artist-card-grid {
+    margin-left: 30px;
+}
+
+.button,
+.active-button {
+    background-color: #1DB954;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.active-button {
+    border: 3px solid #fff;
+}
+
+.button:hover {
+    background-color: #16914B;
+    cursor: pointer;
+}
+
+.top-info-container {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    max-width: 1400px;
+    height: auto;
+    margin: 100px auto;
+    background-color: #212121;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.listening-info-grid {
+    max-width: 1000px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+}
+
+.selection-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    justify-content: center;
+}
+
+.timeline-buttons-container,
+.type-buttons-container {
+    background-color: #333333;
+    border-radius: 8px;
+    width: 350px;
+    height: auto;
+    padding: 11px;
+    text-align: center;
+}
+
+.timeline-text,
+.type-text {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+    color: #fff;
+}
+
+.timeline-buttons,
+.type-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.rank {
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.not-enough-data-message {
+    text-align: center;
+    margin-top: 3rem;
+    max-height: 30px;
+    font-size: 60px;
+    color: #fff;
+}

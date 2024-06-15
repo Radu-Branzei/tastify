@@ -1,0 +1,20 @@
+<div class="track-card">
+    <div class="image-area">
+        <img class="track-image" [src]="imageUrl" alt="">
+    </div>
+    <div class="text-area">
+        <h2 (click)="redirectToTrackPage(trackId)" [title]="name" class="track-title">{{name | truncate:35}}</h2>
+        <div class="artists-area">
+            <p *ngFor="let artist of artistList; let last = last" class="artist-name"
+                (click)="redirectToArtistPage(artist.id)">
+                {{artist.name}}{{ !last ? ',' : '' }}</p>
+        </div>
+    </div>
+    <div (click)="playTrack(uri)" class="play-icon">
+        <div class="circle">
+            <div class="triangle">
+
+            </div>
+        </div>
+    </div>
+</div>

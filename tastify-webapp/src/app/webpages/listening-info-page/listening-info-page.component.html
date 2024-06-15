@@ -1,0 +1,57 @@
+<div class="top-info-section">
+    <div class="top-info-container">
+
+        <div class="selection-buttons">
+
+            <div class="timeline-buttons-container">
+                <h1 class="timeline-text">Timeline</h1>
+                <div class="timeline-buttons">
+                    <button class="button" [class.active-button]="timelineOption == 1" (click)="getListeningInfo(1)">4
+                        Weeks</button>
+                    <button class="button" [class.active-button]="timelineOption == 2" (click)="getListeningInfo(2)">6
+                        Months</button>
+                    <button class="button" [class.active-button]="timelineOption == 3" (click)="getListeningInfo(3)">All
+                        Time</button>
+                </div>
+            </div>
+
+            <h1 class="top-info-container-text">Your most listened {{ informationType }}</h1>
+
+            <div class="type-buttons-container">
+                <h1 class="type-text">Information Type</h1>
+                <div class="type-buttons">
+                    <button class="button" [class.active-button]="informationType == 'artists'"
+                        (click)="getArtists(); getListeningInfo(timelineOption)">Artists</button>
+                    <button class="button" [class.active-button]="informationType == 'tracks'"
+                        (click)="getTracks(); getListeningInfo(timelineOption)">Tracks</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div
+            *ngIf="(topArtists!.length == 0 && informationType == 'artists') || (topTracks!.length == 0 && informationType == 'tracks')">
+            <h1 class="not-enough-data-message">
+                Not enough data has been collected for this timeline. <br> Listen to some more music or choose a
+                different one.
+            </h1>
+        </div> -->
+
+        <div class="listening-info-grid">
+            <div *ngIf="informationType == 'tracks'" class="track-card-grid">
+                <div *ngFor="let track of topTracks; let i = index" [@fadeIn]>
+                    <p class="rank">#{{ i + 1 }}</p>
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                </div>
+            </div>
+
+            <div *ngIf="informationType == 'artists'" class="artist-card-grid">
+                <div *ngFor="let artist of topArtists; let i = index" [@fadeIn]>
+                    <p class="rank">#{{ i + 1 }}</p>
+                    <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                        [href]="artist.href"></app-artist-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

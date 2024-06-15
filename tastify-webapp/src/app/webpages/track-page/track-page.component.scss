@@ -1,0 +1,198 @@
+.track-page-container {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    max-width: 1240px;
+    height: 1800px;
+    margin: 100px auto;
+    background-color: #212121;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    gap: 55px;
+}
+
+.track-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.track-image {
+    max-width: 250px;
+    max-height: 250px;
+    width: 250px;
+    height: 250px;
+    margin-right: 20px;
+}
+
+.track-header-text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 3rem;
+}
+
+.track-name {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    margin-top: 0px;
+    max-height: 30px;
+    font-size: 80px;
+    color: #fff;
+}
+
+.track-header-info {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.track-popularity-container,
+.track-duration-container,
+.analysis-section {
+    background-color: #333333;
+    border-radius: 8px;
+    width: 220px;
+    height: 85px;
+    max-height: 85px;
+    padding: 11px;
+}
+
+.analysis-section {
+    margin-left: 70px;
+}
+
+.track-popularity-container,
+.track-duration-container {
+    position: relative;
+}
+
+.track-popularity,
+.track-duration,
+.analysis-section-value {
+    font-size: 30px;
+    color: #1DB954;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 0px;
+}
+
+.audio-analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.track-popularity-info,
+.track-duration-info,
+.analysis-section-info {
+    color: #fff;
+    text-align: center;
+}
+
+.spotify-link-image img {
+    max-height: 100px;
+}
+
+.spotify-link-image:hover {
+    cursor: pointer;
+}
+
+.arrows {
+    display: flex;
+    flex-direction: row;
+}
+
+.range-info {
+    font-size: 24px;
+    color: gray;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.back-arrow,
+.forward-arrow {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 20px;
+    margin-left: 8px;
+}
+
+.back-arrow:hover,
+.forward-arrow:hover {
+    cursor: pointer;
+}
+
+.invalid-arrow {
+    cursor: default !important;
+    color: gray;
+}
+
+
+.track-artists-container,
+.users-listening-container {
+    height: 100px;
+    max-height: 100px;
+}
+
+.audio-features-container {
+    margin-top: 19rem;
+}
+
+.track-artists-info,
+.users-listening-info,
+.audio-features-info,
+.audio-analysis-info {
+    color: #fff;
+    font-size: 24px;
+}
+
+.track-artists,
+.users-listening {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-artists-grid,
+.users-listening-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.no-users-message {
+    font-size: 24px;
+    color: red;
+    margin: 0px;
+}
+
+.audio-features {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.feature-text {
+    color: #fff;
+    font-size: 22px;
+}
+
+.progress-bar {
+    width: 130px;
+    background-color: #ccc;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 10px;
+    background-color: green;
+    width: 0;
+    transition: width 0.3s ease;
+}

@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.container {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    max-width: 600px;
+    height: 520px;
+    margin: 100px auto;
+    background-color: #212121;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.container-logo {
+    max-width: 180px;
+    padding: 0%;
+    margin-bottom: 0;
+}
+
+.container-title {
+    margin-top: 0;
+    padding-top: 0;
+    color: #1DB954;
+    font-size: 60px;
+}
+
+.container-description {
+    color: #ccc;
+    font-size: 17px;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 35px;
+}
+
+.container-description-features {
+    text-align: left;
+    margin-left: 10%;
+}
+
+.login-button {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    display: inline-block;
+    background-color: #1DB954;
+    color: #fff;
+    font-size: 22px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    cursor: pointer;
+    background-color: #16914B;
+}

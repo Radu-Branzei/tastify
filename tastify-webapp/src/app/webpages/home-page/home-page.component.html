@@ -1,0 +1,41 @@
+<div class="home-container" [@fadeIn]>
+    <div class="section-card">
+        <img class="listening-info-image" src="../../../assets/images/poza1-removebg-preview.png" alt="">
+        <div class="section-description">
+            <h1>Discover yourself!</h1>
+            <p>Here you can find an exact ranking of your 50 most popular
+                songs
+                and artists over a chosen period of
+                time. <br>
+                This data is publicly visible amongst other users who registered on this site.</p>
+        </div>
+        <div class="redirect-link" (click)="redirectToListeningInfoPage()">Check Out Your Top</div>
+    </div>
+
+    <div class="section-card">
+        <img class="obscurity-image" src="../../../assets/images/poza2-removebg.png" alt="">
+        <div class="section-description">
+            <h1>How unique are you?</h1>
+            <p>Looking through your listening history we can also tell you how
+                unique you
+                are. <br>
+                Based on the popularity of each song and artist, we
+                calculate an average obscurity score.
+            <p>
+        </div>
+        <div class="redirect-link" (click)="redirectToObscurityPage()">Test Your Obscurity</div>
+
+    </div>
+
+    <div class="section-card">
+        <img src="../../../assets/images/poza3-removebg-preview.png" alt="">
+        <div class="section-description">
+            <h1>Find music you like!</h1>
+            <p class="recommended-songs-description">Get more recommendations based on your listening taste or a
+                chosen series of tracks or artists. <br>
+                Unlike Spotify, these are purely based on your choice and we don't force anything down your
+                neck. </p>
+        </div>
+        <div class="redirect-link" (click)="redirectToRecommendationsPage()">Check Recommended Songs</div>
+    </div>
+</div>

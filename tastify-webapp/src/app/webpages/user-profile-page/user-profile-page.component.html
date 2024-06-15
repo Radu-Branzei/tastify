@@ -1,0 +1,85 @@
+<div class="user-page-container">
+    <div class="user-header">
+        <img class="user-image" [src]="currentUser?.imageUrl" alt="Artist Image">
+        <div class="user-header-text">
+            <p class="user-name">{{ currentUser?.name | truncate:25 }}</p>
+            <div class="user-header-info">
+                <div class="user-obscurity-container">
+                    <p class="user-obscurity">{{ (currentUser!.obscurityScore > 0) ?
+                        currentUser!.obscurityScore.toFixed(2) : '-'
+                        }}</p>
+                    <p class="user-obscurity-info">Obscurity: 0 - 100</p>
+                </div>
+                <!-- <div class="artist-followers-container">
+                    <p class="artist-followers">{{ currentArtist?.followersCount }}</p>
+                    <p class="artist-followers-info">Followers</p>
+                </div> -->
+                <div (click)="redirectToSpotifyPage()" class="spotify-link-image">
+                    <img src="../../../assets/images/spotify-logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="common-artists-container">
+        <p class="common-artists-info">Artists you both listen to:</p>
+        <div class="common-artists">
+            <div *ngIf="commonArtists!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerCommonArtistsRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="commonArtistsRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseCommonArtistsRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="commonArtistsRange1 >= commonArtists!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{commonArtistsRange0 + 1}} - {{ (commonArtistsRange1 >
+                        commonArtists!.length) ?
+                        commonArtists!.length :
+                        commonArtistsRange1 }}</p>
+                </div>
+                <div class="common-artists-grid">
+                    <div *ngFor="let artist of commonArtists | slice:commonArtistsRange0:commonArtistsRange1">
+                        <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                            [href]="artist.href"></app-artist-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="commonArtists?.length == 0">
+                <p class="no-data-message">You don't share any artists with this user.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="common-tracks-container">
+        <p class="common-tracks-info">Songs you both listen to:</p>
+        <div class="common-tracks">
+            <div *ngIf="commonTracks!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerCommonTracksRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="commonTracksRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseCommonTracksRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="commonTracksRange1 >= commonTracks!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{commonTracksRange0 + 1}} - {{ (commonTracksRange1 >
+                        commonTracks!.length) ?
+                        commonTracks!.length :
+                        commonTracksRange1 }}</p>
+                </div>
+                <div class="common-tracks-grid">
+                    <div *ngFor="let track of commonTracks | slice:commonTracksRange0:commonTracksRange1">
+                        <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                            [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="commonTracks?.length == 0">
+                <p class="no-data-message">You don't share any songs with this user.</p>
+            </div>
+        </div>
+    </div>
+</div>

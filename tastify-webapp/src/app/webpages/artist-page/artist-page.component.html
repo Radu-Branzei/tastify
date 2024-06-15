@@ -1,0 +1,111 @@
+<div class="artist-page-container">
+    <div class="artist-header">
+        <img class="artist-image" [src]="currentArtist?.imageUrl" alt="Artist Image">
+        <div class="artist-header-text">
+            <p class="artist-name" [title]="currentArtist?.name">{{ currentArtist?.name | truncate:25 }}</p>
+            <div class="artist-header-info">
+                <div class="artist-popularity-container">
+                    <p class="artist-popularity">{{ currentArtist?.popularityScore }}</p>
+                    <p class="artist-popularity-info">Popularity: 0 - 100</p>
+                </div>
+                <div class="artist-followers-container">
+                    <p class="artist-followers">{{ currentArtist?.followersCount }}</p>
+                    <p class="artist-followers-info">Followers</p>
+                </div>
+                <div (click)="redirectToSpotifyPage()" class="spotify-link-image">
+                    <img src="../../../assets/images/spotify-logo-removebg-preview.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="artist-top-tracks-container">
+        <p class="artist-top-tracks-info">{{ currentArtist?.name }}'s most popular tracks</p>
+        <div class="artist-top-tracks">
+            <div *ngIf="topTracks!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerTopTracksRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="topTracksRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseTopTracksRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="topTracksRange1 >= topTracks!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{topTracksRange0 + 1}} - {{ (topTracksRange1 > topTracks!.length) ?
+                        topTracks!.length :
+                        topTracksRange1 }}</p>
+                </div>
+                <div class="artist-top-tracks-grid">
+                    <div *ngFor="let track of topTracks | slice:topTracksRange0:topTracksRange1">
+                        <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                            [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="topTracks!.length == 0">
+                <p class="error-message">This artist doesn't have any songs.</p>
+            </div>
+        </div>
+    </div>
+    <div class="artist-top-albums-container">
+        <p class="artist-top-albums-info">{{ currentArtist?.name }}'s most popular albums</p>
+        <div class="artist-top-albums">
+            <div *ngIf="topAlbums!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerTopAlbumsRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="topAlbumsRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseTopAlbumsRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="topAlbumsRange1 >= topAlbums!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{topAlbumsRange0 + 1}} - {{ (topAlbumsRange1 > topAlbums!.length) ?
+                        topAlbums!.length :
+                        topAlbumsRange1 }}</p>
+                </div>
+                <div class="artist-top-albums-grid">
+                    <div *ngFor="let album of topAlbums | slice:topAlbumsRange0:topAlbumsRange1">
+                        <app-album-card [imageUrl]="album.imageUrl" [name]="album.name" [artistList]="album.artistList"
+                            [href]="album.href"></app-album-card>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="topAlbums!.length == 0">
+                <p class="error-message">This artist doesn't have any albums.</p>
+            </div>
+        </div>
+    </div>
+    <div class="users-listening-container">
+        <p class="users-listening-info">Other users listening to this</p>
+        <div class="users-listening">
+            <div *ngIf="usersListening!.length > 0">
+                <div class="arrows">
+                    <div class="arrows">
+                        <span (click)="lowerUsersListeningRange()" class="back-arrow material-symbols-outlined"
+                            [class.invalid-arrow]="usersListeningRange0 == 0">
+                            arrow_back_ios
+                        </span>
+                        <span (click)="increaseUsersListeningRange()" class="forward-arrow material-symbols-outlined"
+                            [class.invalid-arrow]="usersListeningRange1 >= usersListening!.length">
+                            arrow_forward_ios
+                        </span>
+                        <p class="range-info">Showing {{usersListeningRange0 + 1}} - {{ (usersListeningRange1 >
+                            usersListening!.length) ?
+                            usersListening!.length :
+                            usersListeningRange1 }}</p>
+                    </div>
+                </div>
+                <div class="users-listening-grid">
+                    <div *ngFor="let user of usersListening | slice:usersListeningRange0:usersListeningRange1">
+                        <app-user-card [userId]="user.id" [imageUrl]="user.imageUrl" [name]="user.name"></app-user-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="usersListening!.length == 0">
+                <p class="error-message">There are no other users listening to this.</p>
+            </div>
+        </div>
+    </div>
+</div>

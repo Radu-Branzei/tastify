@@ -1,0 +1,13 @@
+<div class="album-card">
+    <div class="image-area">
+        <img class="album-image" [src]="imageUrl" alt="">
+    </div>
+    <div class="text-area">
+        <h2 (click)="redirectToSpotifyPage(href)" class="album-title" [title]="name">{{name}}</h2>
+        <div class="artists-area">
+            <p *ngFor="let artist of artistList; let last = last" class="artist-name"
+                (click)="redirectToArtistPage(artist.id)">
+                {{artist.name}}{{ !last ? ',' : '' }}</p>
+        </div>
+    </div>
+</div>

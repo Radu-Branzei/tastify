@@ -1,0 +1,163 @@
+.artist-page-container {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    max-width: 1240px;
+    height: 1800px;
+    margin: 100px auto;
+    background-color: #212121;
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    gap: 55px;
+}
+
+.artist-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.artist-image {
+    max-width: 250px;
+    max-height: 250px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.artist-header-text {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 3rem;
+}
+
+.artist-name {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    margin-top: 0px;
+    max-height: 30px;
+    font-size: 80px;
+    color: #fff;
+}
+
+.artist-header-info {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.artist-popularity-container,
+.artist-followers-container {
+    background-color: #333333;
+    border-radius: 8px;
+    width: 220px;
+    height: 85px;
+    max-height: 85px;
+    padding: 11px;
+}
+
+.artist-popularity-container,
+.artist-followers-container {
+    position: relative;
+}
+
+.artist-popularity,
+.artist-followers {
+    font-size: 30px;
+    color: #1DB954;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 0px;
+}
+
+.artist-popularity-info,
+.artist-followers-info {
+    color: #fff;
+    text-align: center;
+}
+
+.artist-top-tracks-container,
+.artist-top-albums-container,
+.users-listening-container {
+    height: 150px;
+    max-height: 150px;
+}
+
+.artist-top-albums-container,
+.users-listening-container {
+    margin-top: 19rem;
+}
+
+.arrows {
+    display: flex;
+    flex-direction: row;
+}
+
+.back-arrow,
+.forward-arrow {
+    font-size: 30px;
+    color: white;
+    margin-bottom: 20px;
+    margin-left: 8px;
+}
+
+.back-arrow:hover,
+.forward-arrow:hover {
+    cursor: pointer;
+}
+
+.invalid-arrow {
+    cursor: default !important;
+    color: gray;
+}
+
+.range-info {
+    font-size: 24px;
+    color: gray;
+    padding: 0;
+    margin: 0;
+    margin-left: 20px;
+}
+
+.artist-top-tracks-info,
+.artist-top-albums-info,
+.users-listening-info {
+    color: #fff;
+    font-size: 24px;
+}
+
+.artist-top-tracks,
+.artist-top-albums,
+.users-listening {
+    display: flex;
+    flex-direction: column;
+}
+
+.artist-top-tracks-grid,
+.artist-top-albums-grid,
+.users-listening-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.spotify-link-image img {
+    max-height: 100px;
+}
+
+.spotify-link-image:hover {
+    cursor: pointer;
+}
+
+.error-message {
+    font-size: 24px;
+    color: red;
+    margin: 0px;
+}

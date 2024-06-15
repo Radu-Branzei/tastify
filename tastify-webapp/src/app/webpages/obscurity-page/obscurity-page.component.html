@@ -1,0 +1,62 @@
+<div *ngIf="obscurityScore > 0" class="obscurity-page-container">
+    <h1 class="obscurity-text">
+        YOUR OBSCURITY SCORE
+    </h1>
+    <div class="obscurity-score-container" [@fadeInSlow]>
+        <h1 class="obscurity-score" #obscurityScoreElement></h1>
+        <h1 class="obscurity-score">/100</h1>
+    </div>
+    <div class="average-obscurity-section" [@fadeInSlow]>
+        <h3 class="average-obscurity">
+            {{ getObscurityLevelMessage(obscurityScore) }} <br>
+            The average obscurity score of users on this platform is {{ averageObscurityScore.toFixed(2) }}.
+        </h3>
+    </div>
+    <div class="most-popular-tracks-section">
+        <h2 class="most-popular-tracks-text">
+            Your most basic songs
+        </h2>
+        <div class="track-card-grid">
+            <div *ngFor="let track of mostPopularTracks">
+                <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                    [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeInSlow]></app-song-card>
+            </div>
+        </div>
+    </div>
+    <div class="most-unique-tracks-section">
+        <h2 class="most-unique-tracks-text">
+            Your most unique songs
+        </h2>
+        <div class="track-card-grid">
+            <div *ngFor="let track of mostUniqueTracks">
+                <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                    [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeInSlow]></app-song-card>
+            </div>
+        </div>
+    </div>
+    <div class="similar-users-section">
+        <h2 class="similar-users-text">
+            Users with similar obscurity
+        </h2>
+        <div class="user-card-grid">
+            <div *ngFor="let user of similarUsers">
+                <app-user-card [userId]="user.id" [imageUrl]="user.imageUrl" [name]="user.name"
+                    [@fadeInSlow]></app-user-card>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="obscurityScore < 0">
+    <div class="obscurity-page-loading-container">
+        <h1 class="loading-message">
+            Calculating...
+        </h1>
+    </div>
+</div>
+<div *ngIf="isValueNaN(obscurityScore)">
+    <div class="obscurity-page-error-container">
+        <h1 class="not-enough-data-message">
+            Not enough data has been collected. <br> Listen to some more music and come back!
+        </h1>
+    </div>
+</div>

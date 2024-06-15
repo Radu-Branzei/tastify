@@ -1,0 +1,220 @@
+<!-- <div *ngIf="topArtists!.length > 0" class="recommendations-container">
+    <h1 class="recommended-text">
+        YOUR RECOMMENDED SONGS
+    </h1>
+    <div class="section-1">
+        <p class="section-text">
+            Because you like {{ topArtists![0].name }}
+        </p>
+        <div class="recommended-tracks-1">
+            <div class="arrows">
+                <span (click)="lowerRecommendedTracks1Range()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks1Range0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseRecommendedTracks1Range()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks1Range1 >= recommendedTracks1!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{recommendedTracks1Range0 + 1}} - {{ (recommendedTracks1Range1 >
+                    recommendedTracks1!.length) ?
+                    recommendedTracks1!.length :
+                    recommendedTracks1Range1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of recommendedTracks1 | slice:recommendedTracks1Range0:recommendedTracks1Range1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="topArtists!.length > 1" class="section-2">
+        <p class="section-text">
+            Because you like {{ topArtists![1].name }}
+        </p>
+        <div class="recommended-tracks-2">
+            <div class="arrows">
+                <span (click)="lowerRecommendedTracks2Range()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks2Range0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseRecommendedTracks2Range()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks2Range1 >= recommendedTracks2!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{recommendedTracks2Range0 + 1}} - {{ (recommendedTracks2Range1 >
+                    recommendedTracks2!.length) ?
+                    recommendedTracks2!.length :
+                    recommendedTracks2Range1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of recommendedTracks2 | slice:recommendedTracks2Range0:recommendedTracks2Range1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="topArtists!.length > 2" class="section-3">
+        <p class="section-text">
+            Because you like {{ topArtists![2].name }}
+        </p>
+        <div class="recommended-tracks-3">
+            <div class="arrows">
+                <span (click)="lowerRecommendedTracks3Range()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks3Range0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseRecommendedTracks3Range()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracks3Range1 >= recommendedTracks3!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{recommendedTracks3Range0 + 1}} - {{ (recommendedTracks3Range1 >
+                    recommendedTracks3!.length) ?
+                    recommendedTracks3!.length :
+                    recommendedTracks3Range1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of recommendedTracks3 | slice:recommendedTracks3Range0:recommendedTracks3Range1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"></app-song-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="recommendedTracks1!.length < 1">
+    <div class="recommendations-page-error-container">
+        <h1 class="not-enough-data-message">
+            Not enough data has been collected. <br> Listen to some more music and come back!
+        </h1>
+    </div>
+</div> -->
+<div class="recommendations-container">
+    <div class="grid">
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+    </div>
+    <div class="search-section">
+        <div class="search-bar">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input class="search-input" type="search" [(ngModel)]="searchInput"
+                placeholder="Search for an artist or song" (keydown.enter)="onEnter($event)">
+        </div>
+    </div>
+    <div class="artists-found-container">
+        <h3 class="artists-found-text">Artists found</h3>
+        <div *ngIf="artistsFound!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerArtistsFoundRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="artistsFoundRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseArtistsFoundRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="artistsFoundRange1 >= artistsFound!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{artistsFoundRange0 + 1}} - {{ (artistsFoundRange1 >
+                    artistsFound!.length) ?
+                    artistsFound!.length :
+                    artistsFoundRange1 }}</p>
+            </div>
+            <div class="artist-card-grid">
+                <div *ngFor="let artist of artistsFound | slice:artistsFoundRange0:artistsFoundRange1">
+                    <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                        [href]="artist.href" [@fadeIn]></app-artist-card>
+                    <button (click)="addArtist(artist.id)" class="add-button">Add</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="artistsFound!.length == 0">
+            <p class="error-message">No artists found.</p>
+        </div>
+    </div>
+
+    <div class="tracks-found-container">
+        <h3 class="tracks-found-text">Tracks found</h3>
+        <div *ngIf="tracksFound!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerTracksFoundRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="tracksFoundRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseTracksFoundRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="tracksFoundRange1 >= tracksFound!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{tracksFoundRange0 + 1}} - {{ (tracksFoundRange1 >
+                    tracksFound!.length) ?
+                    tracksFound!.length :
+                    tracksFoundRange1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of tracksFound | slice:tracksFoundRange0:tracksFoundRange1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeIn]></app-song-card>
+                    <button (click)="addTrack(track.id)" class="add-button">Add</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tracksFound!.length == 0">
+            <p class="error-message">No tracks found.</p>
+        </div>
+    </div>
+
+    <div class="recommended-tracks-container">
+        <h3 class="recommended-tracks-text">Recommended tracks</h3>
+        <div *ngIf="recommendedTracks!.length > 0">
+            <div class="arrows">
+                <span (click)="lowerRecommendedTracksRange()" class="back-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracksRange0 == 0">
+                    arrow_back_ios
+                </span>
+                <span (click)="increaseRecommendedTracksRange()" class="forward-arrow material-symbols-outlined"
+                    [class.invalid-arrow]="recommendedTracksRange1 >= recommendedTracks!.length">
+                    arrow_forward_ios
+                </span>
+                <p class="range-info">Showing {{recommendedTracksRange0 + 1}} - {{ (recommendedTracksRange1 >
+                    recommendedTracks!.length) ?
+                    recommendedTracks!.length :
+                    recommendedTracksRange1 }}</p>
+            </div>
+            <div class="track-card-grid">
+                <div *ngFor="let track of recommendedTracks | slice:recommendedTracksRange0:recommendedTracksRange1">
+                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeIn]></app-song-card>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tracksFound!.length == 0">
+            <p class="error-message">No tracks found.</p>
+        </div>
+    </div>
+
+    <button (click)="setRecommendedTracks()">SRT</button>
+
+</div>
