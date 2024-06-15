@@ -75,7 +75,7 @@ export class UserService {
         case 1: return 'short_term';
         case 2: return 'medium_term';
         case 3: return 'long_term';
-        default: return 'Invalid timeline';
+        default: return 'Invalid option';
       }
     })();
 
