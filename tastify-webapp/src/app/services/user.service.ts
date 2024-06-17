@@ -429,14 +429,12 @@ export class UserService {
     return availableGenres;
   }
 
-  async getRecommendedTracks(artists: Artist[], tracks: Track[], artistIndex: number): Promise<Track[] | null> {
+  async getRecommendedTracks(artists: Artist[], tracks: Track[]): Promise<Track[] | null> {
 
     let recommendedTracks: Track[] | null = [];
 
-    let artistIds = artists!.join(',');
-    let trackIds = tracks!.join(',');
-    let genres = await this.getAvailableGenreSeeds();
-    let genreString = genres![0];
+    let artistIds = artists.map(artist => artist.id).join(',');
+    let trackIds = tracks.map(track => track.id).join(',');
 
     var fetchedData = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${artistIds}&seed_tracks=${trackIds}`, this.getRequiredGETParameters())
       .then(result => result.json())

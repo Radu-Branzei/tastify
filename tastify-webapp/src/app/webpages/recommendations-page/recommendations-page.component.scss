@@ -14,6 +14,12 @@
     gap: 55px;
 }
 
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -161,11 +167,13 @@
     color: red;
 }
 
-.add-button {
+.add-button,
+.remove-artist-button,
+.remove-track-button,
+.inactive-add-button {
     width: 100px;
     margin-top: 10px;
     margin-left: 70px;
-    background-color: #1DB954;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -176,8 +184,31 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.add-button:hover {
+.add-button {
+    background-color: #1DB954;
+}
+
+.inactive-add-button {
+    background-color: gray;
+}
+
+.remove-artist-button,
+.remove-track-button {
+    background-color: red;
+}
+
+.remove-artist-button {
+    margin-top: 75px;
+}
+
+.add-button:hover,
+.remove-artist-button:hover,
+.remove-track-button:hover {
     cursor: pointer;
+}
+
+.inactive-add-button:hover {
+    cursor: default;
 }
 
 // .recommended-text {

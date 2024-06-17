@@ -38,7 +38,9 @@ export class ObscurityPageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.obscurityScore = await this.userService.calculateObscurityScore();
+    console.log(this.obscurityScore);
     if (this.obscurityScore > 0) {
+      this.obscurityScore = 100 - this.obscurityScore;
       await this.authService.updateObscurityScore(this.obscurityScore);
       await this.updateObscurityInfo();
       await this.animateNumberIncrease();
@@ -62,7 +64,7 @@ export class ObscurityPageComponent implements OnInit {
 
     this.mostPopularTracks = tracks!.slice(0, 3);
     this.mostUniqueTracks = tracks!.slice(-3).reverse();
-    this.similarUsers = await this.userService.getSimilarUsers(2);
+    this.similarUsers = await this.userService.getSimilarUsers(this.obscurityScore);
   }
 
   async animateNumberIncrease(): Promise<void> {
@@ -84,15 +86,15 @@ export class ObscurityPageComponent implements OnInit {
   getObscurityLevelMessage(obscurityScore: number): string {
     switch (true) {
       case obscurityScore >= 0 && obscurityScore <= 20:
-        return "You definitely like to boast about how hipster you are.";
+        return "Do you listen to anything outside radio pop songs?";
       case obscurityScore > 20 && obscurityScore <= 40:
-        return "We get it. You don't like being mainstream.";
+        return "You seem to be listening to what everybody else is.";
       case obscurityScore > 40 && obscurityScore <= 60:
         return "Very balanced, as all things should be.";
       case obscurityScore > 60 && obscurityScore <= 80:
-        return "You seem to be listening to what everybody else is.";
+        return "We get it. You don't like being mainstream.";
       case obscurityScore > 80 && obscurityScore <= 100:
-        return "Do you listen to anything outside radio pop songs?";
+        return "You definitely like to boast about how hipster you are.";
       default:
         return "Out of Range";
     }

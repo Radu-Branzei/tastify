@@ -27,10 +27,10 @@ export class PlayerBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkSpotifyConnection();
-    // this.intervalId = setInterval(() => {
-    //   this.checkSpotifyConnection();
-    //   this.updateProgressBar();
-    // }, 1000);
+    this.intervalId = setInterval(() => {
+      this.checkSpotifyConnection();
+      this.updateProgressBar();
+    }, 1000);
   }
 
   private async checkSpotifyConnection(): Promise<void> {

@@ -93,99 +93,52 @@
 </div> -->
 <div class="recommendations-container">
     <div class="grid">
-        <div class="grid-section">
-            <div class="circle">
-                <span class="plus">+</span>
-            </div>
-        </div>
-        <div class="grid-section">
-            <div class="circle">
-                <span class="plus">+</span>
-            </div>
-        </div>
-        <div class="grid-section">
-            <div class="circle">
-                <span class="plus">+</span>
-            </div>
-        </div>
-        <div class="grid-section">
-            <div class="circle">
-                <span class="plus">+</span>
-            </div>
-        </div>
-        <div class="grid-section">
-            <div class="circle">
-                <span class="plus">+</span>
-            </div>
-        </div>
-    </div>
-    <div class="search-section">
-        <div class="search-bar">
-            <span class="search-icon material-symbols-outlined">search</span>
-            <input class="search-input" type="search" [(ngModel)]="searchInput"
-                placeholder="Search for an artist or song" (keydown.enter)="onEnter($event)">
-        </div>
-    </div>
-    <div class="artists-found-container">
-        <h3 class="artists-found-text">Artists found</h3>
-        <div *ngIf="artistsFound!.length > 0">
-            <div class="arrows">
-                <span (click)="lowerArtistsFoundRange()" class="back-arrow material-symbols-outlined"
-                    [class.invalid-arrow]="artistsFoundRange0 == 0">
-                    arrow_back_ios
-                </span>
-                <span (click)="increaseArtistsFoundRange()" class="forward-arrow material-symbols-outlined"
-                    [class.invalid-arrow]="artistsFoundRange1 >= artistsFound!.length">
-                    arrow_forward_ios
-                </span>
-                <p class="range-info">Showing {{artistsFoundRange0 + 1}} - {{ (artistsFoundRange1 >
-                    artistsFound!.length) ?
-                    artistsFound!.length :
-                    artistsFoundRange1 }}</p>
-            </div>
-            <div class="artist-card-grid">
-                <div *ngFor="let artist of artistsFound | slice:artistsFoundRange0:artistsFoundRange1">
-                    <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
-                        [href]="artist.href" [@fadeIn]></app-artist-card>
-                    <button (click)="addArtist(artist.id)" class="add-button">Add</button>
+        <div *ngFor="let item of [].constructor(5); let i = index">
+            <div *ngIf="filterList!.length <= i" class="grid-section">
+                <div class="circle">
+                    <span class="plus">+</span>
                 </div>
             </div>
-        </div>
-        <div *ngIf="artistsFound!.length == 0">
-            <p class="error-message">No artists found.</p>
-        </div>
-    </div>
-
-    <div class="tracks-found-container">
-        <h3 class="tracks-found-text">Tracks found</h3>
-        <div *ngIf="tracksFound!.length > 0">
-            <div class="arrows">
-                <span (click)="lowerTracksFoundRange()" class="back-arrow material-symbols-outlined"
-                    [class.invalid-arrow]="tracksFoundRange0 == 0">
-                    arrow_back_ios
-                </span>
-                <span (click)="increaseTracksFoundRange()" class="forward-arrow material-symbols-outlined"
-                    [class.invalid-arrow]="tracksFoundRange1 >= tracksFound!.length">
-                    arrow_forward_ios
-                </span>
-                <p class="range-info">Showing {{tracksFoundRange0 + 1}} - {{ (tracksFoundRange1 >
-                    tracksFound!.length) ?
-                    tracksFound!.length :
-                    tracksFoundRange1 }}</p>
+            <div *ngIf="filterList!.length > i && isTrack(filterList![i])">
+                <app-song-card [trackId]="getTrack(filterList![i])!.id" [imageUrl]="getTrack(filterList![i])!.imageUrl"
+                    [name]="getTrack(filterList![i])!.name" [artistList]="getTrack(filterList![i])!.artistList"
+                    [href]="getTrack(filterList![i])!.href" [uri]="getTrack(filterList![i])!.uri"></app-song-card>
+                <button (click)="removeFromFilterList(filterList![i])" class="remove-track-button">Remove</button>
             </div>
-            <div class="track-card-grid">
-                <div *ngFor="let track of tracksFound | slice:tracksFoundRange0:tracksFoundRange1">
-                    <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
-                        [artistList]="track.artistList" [href]="track.href" [uri]="track.uri" [@fadeIn]></app-song-card>
-                    <button (click)="addTrack(track.id)" class="add-button">Add</button>
-                </div>
+            <div *ngIf="filterList!.length > i && isArtist(filterList![i])">
+                <app-artist-card [artistId]="getArtist(filterList![i])!.id"
+                    [imageUrl]="getArtist(filterList![i])!.imageUrl" [name]="getArtist(filterList![i])!.name"
+                    [href]="getArtist(filterList![i])!.href"></app-artist-card>
+                <button (click)="removeFromFilterList(filterList![i])" class="remove-artist-button">Remove</button>
             </div>
         </div>
-        <div *ngIf="tracksFound!.length == 0">
-            <p class="error-message">No tracks found.</p>
-        </div>
-    </div>
 
+        <!-- <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div>
+        <div class="grid-section">
+            <div class="circle">
+                <span class="plus">+</span>
+            </div>
+        </div> -->
+    </div>
     <div class="recommended-tracks-container">
         <h3 class="recommended-tracks-text">Recommended tracks</h3>
         <div *ngIf="recommendedTracks!.length > 0">
@@ -210,11 +163,80 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="tracksFound!.length == 0">
-            <p class="error-message">No tracks found.</p>
+        <div *ngIf="recommendedTracks!.length == 0">
+            <p class="error-message">Add some artists or tracks to filter for recommendations.</p>
+        </div>
+    </div>
+    <div class="search-section">
+        <div class="search-bar">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input class="search-input" type="search" [(ngModel)]="searchInput"
+                placeholder="Search for an artist or song" (keydown.enter)="onEnter($event)">
         </div>
     </div>
 
-    <button (click)="setRecommendedTracks()">SRT</button>
+    <div *ngIf="lastSearchInput != ''" class="search-results">
+        <div class="artists-found-container">
+            <h3 class="artists-found-text">Artists found</h3>
+            <div *ngIf="artistsFound!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerArtistsFoundRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="artistsFoundRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseArtistsFoundRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="artistsFoundRange1 >= artistsFound!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{artistsFoundRange0 + 1}} - {{ (artistsFoundRange1 >
+                        artistsFound!.length) ?
+                        artistsFound!.length :
+                        artistsFoundRange1 }}</p>
+                </div>
+                <div class="artist-card-grid">
+                    <div *ngFor="let artist of artistsFound | slice:artistsFoundRange0:artistsFoundRange1">
+                        <app-artist-card [artistId]="artist.id" [imageUrl]="artist.imageUrl" [name]="artist.name"
+                            [href]="artist.href" [@fadeIn]></app-artist-card>
+                        <button (click)="addArtist(artist)" class="add-button"
+                            [class.inactive-add-button]="isInFilterList(artist)">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="artistsFound!.length == 0">
+                <p class="error-message">No artists found.</p>
+            </div>
+        </div>
 
+        <div class="tracks-found-container">
+            <h3 class="tracks-found-text">Tracks found</h3>
+            <div *ngIf="tracksFound!.length > 0">
+                <div class="arrows">
+                    <span (click)="lowerTracksFoundRange()" class="back-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="tracksFoundRange0 == 0">
+                        arrow_back_ios
+                    </span>
+                    <span (click)="increaseTracksFoundRange()" class="forward-arrow material-symbols-outlined"
+                        [class.invalid-arrow]="tracksFoundRange1 >= tracksFound!.length">
+                        arrow_forward_ios
+                    </span>
+                    <p class="range-info">Showing {{tracksFoundRange0 + 1}} - {{ (tracksFoundRange1 >
+                        tracksFound!.length) ?
+                        tracksFound!.length :
+                        tracksFoundRange1 }}</p>
+                </div>
+                <div class="track-card-grid">
+                    <div *ngFor="let track of tracksFound | slice:tracksFoundRange0:tracksFoundRange1">
+                        <app-song-card [trackId]="track.id" [imageUrl]="track.imageUrl" [name]="track.name"
+                            [artistList]="track.artistList" [href]="track.href" [uri]="track.uri"
+                            [@fadeIn]></app-song-card>
+                        <button (click)="addTrack(track)" class="add-button"
+                            [class.inactive-add-button]="isInFilterList(track)">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="tracksFound!.length == 0">
+                <p class="error-message">No tracks found.</p>
+            </div>
+        </div>
+    </div>
 </div>

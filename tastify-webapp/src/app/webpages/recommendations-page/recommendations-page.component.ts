@@ -38,13 +38,12 @@ export class RecommendationsPageComponent implements OnInit {
   tracksFoundRange0: number = 0;
   tracksFoundRange1: number = 5;
   searchInput!: string;
+  lastSearchInput: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private userService: UserService) { }
 
   async ngOnInit(): Promise<void> {
-    this.filterArtists = await this.userService.getUsersTopArtists(1);
-    this.filterArtists?.slice(0, 1);
-    this.setRecommendedTracks();
+    //this.setRecommendedTracks();
   }
 
   async onEnter(event: Event): Promise<void> {
@@ -52,26 +51,84 @@ export class RecommendationsPageComponent implements OnInit {
     const keyboardEvent = event as KeyboardEvent;
 
     if (keyboardEvent.key === 'Enter') {
+      this.lastSearchInput = this.searchInput;
       this.artistsFound = await this.userService.getArtistsBySearch(this.searchInput);
       this.tracksFound = await this.userService.getTracksBySearch(this.searchInput);
     }
   }
 
   async setRecommendedTracks(): Promise<void> {
-    console.log(this.filterArtists);
-    this.recommendedTracks = await this.userService.getRecommendedTracks(this.filterArtists!, [], 0);
+
+    if (this.filterList?.length == 0) {
+      this.recommendedTracks = [];
+    }
+
+    this.recommendedTracks = await this.userService.getRecommendedTracks(this.filterArtists!, this.filterTracks!);
   }
 
-  async addTrack(trackId: string) {
-    let addedTrack: Track | null;
-    addedTrack = await this.userService.getTrackById(trackId);
-    this.filterTracks!.push(addedTrack!);
+  isTrack(item: TrackOrArtist): item is Track {
+    return (item as Track).duration !== undefined;
   }
 
-  async addArtist(artistId: string) {
-    let addedArtist: Artist | null;
-    addedArtist = await this.userService.getArtistById(artistId);
-    this.filterArtists!.push(addedArtist!);
+  isArtist(item: TrackOrArtist): item is Artist {
+    return (item as Artist).followersCount !== undefined;
+  }
+
+  async addTrack(track: Track) {
+
+    if (this.filterList!.length >= 5 || this.isInFilterList(track)) {
+      return;
+    }
+
+    this.filterTracks!.push(track);
+    this.filterList!.push(track);
+
+    this.setRecommendedTracks();
+  }
+
+  async addArtist(artist: Artist) {
+
+    if (this.filterList!.length >= 5 || this.isInFilterList(artist)) {
+      return;
+    }
+
+    this.filterArtists!.push(artist);
+    this.filterList!.push(artist);
+
+    this.setRecommendedTracks();
+  }
+
+  isInFilterList(item: TrackOrArtist): boolean {
+    let found: boolean = false;
+
+    this.filterList?.forEach(element => {
+      if (item.id == element.id) {
+        found = true;
+      }
+    });
+
+    return found;
+  }
+
+  removeFromFilterList(item: TrackOrArtist) {
+    let idToRemove = item.id;
+    this.filterList = this.filterList!.filter(item => item.id !== idToRemove);
+    if (isArtist(item)) {
+      this.filterArtists = this.filterArtists!.filter(item => item.id !== idToRemove);
+    }
+    else if (isTrack(item)) {
+      this.filterTracks = this.filterTracks!.filter(item => item.id !== idToRemove);
+    }
+
+    this.setRecommendedTracks();
+  }
+
+  getTrack(item: TrackOrArtist) {
+    return (isTrack(item)) ? item : null;
+  }
+
+  getArtist(item: TrackOrArtist) {
+    return (isArtist(item)) ? item : null;
   }
 
   lowerArtistsFoundRange() {
