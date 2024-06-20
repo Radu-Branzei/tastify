@@ -94,22 +94,56 @@
 }
 
 
+.containers {
+    display: flex;
+    flex-direction: row;
+    margin-left: 60px;
+}
 
+.player-container,
+.last-played-container,
+.next-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    width: 400px;
+    gap: 20px;
+}
 
-.player-container-info {
+.last-played-container,
+.next-container {
+    align-self: self-start;
+}
+
+.player-container-info,
+.last-played-info,
+.next-info {
     color: #fff;
     font-size: 24px;
     margin-bottom: 0px;
 }
 
-.player-container {
+.player-container-info {
+    margin-left: 25px;
+}
+
+.last-played-info,
+.next-info {
+    margin-left: 55px;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.player-buttons {
     display: flex;
     flex-direction: row;
-    height: 100px;
-    max-height: 100px;
-    justify-content: space-between;
-    width: 500px;
-    margin: 0 auto;
+    gap: 20px;
+    margin-left: 40px;
 }
 
 .arrow-button,
@@ -139,9 +173,13 @@
     font-size: 24px;
     color: red;
     margin: 0px;
+    height: 500px;
+    margin-left: 60px;
+    margin-top: 150px;
 }
 
-.user-obscurity-container {
+.user-obscurity-container,
+.user-followers-container {
     background-color: #333333;
     border-radius: 8px;
     width: 220px;
@@ -150,11 +188,13 @@
     padding: 11px;
 }
 
-.user-obscurity-container {
+.user-obscurity-container,
+.user-followers-container {
     position: relative;
 }
 
-.user-obscurity {
+.user-obscurity,
+.user-followers {
     font-size: 30px;
     color: #1DB954;
     margin-top: 5px;
@@ -163,7 +203,8 @@
     padding: 0px;
 }
 
-.user-obscurity-info {
+.user-obscurity-info,
+.user-followers-info {
     color: #fff;
     text-align: center;
 }

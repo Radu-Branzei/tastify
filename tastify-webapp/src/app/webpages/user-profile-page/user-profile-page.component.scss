@@ -52,7 +52,8 @@
     gap: 30px;
 }
 
-.user-obscurity-container {
+.user-obscurity-container,
+.user-followers-container {
     background-color: #333333;
     border-radius: 8px;
     width: 220px;
@@ -61,11 +62,13 @@
     padding: 11px;
 }
 
-.user-obscurity-container {
+.user-obscurity-container,
+.user-followers-container {
     position: relative;
 }
 
-.user-obscurity {
+.user-obscurity,
+.user-followers {
     font-size: 30px;
     color: #1DB954;
     margin-top: 5px;
@@ -74,7 +77,8 @@
     padding: 0px;
 }
 
-.user-obscurity-info {
+.user-obscurity-info,
+.user-followers-info {
     color: #fff;
     text-align: center;
 }

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ArtistCardComponent } from "../../profiles/artist-card/artist-card.component";
 import { SongCardComponent } from "../../profiles/song-card/song-card.component";
-import { TrackOrArtist, isArtist, isTrack } from '../../interfaces/track-or-artist.interface';
+import { TrackOrArtist } from '../../interfaces/track-or-artist.interface';
 
 @Component({
   selector: 'app-recommendations-page',
@@ -43,7 +43,6 @@ export class RecommendationsPageComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private userService: UserService) { }
 
   async ngOnInit(): Promise<void> {
-    //this.setRecommendedTracks();
   }
 
   async onEnter(event: Event): Promise<void> {
@@ -113,10 +112,10 @@ export class RecommendationsPageComponent implements OnInit {
   removeFromFilterList(item: TrackOrArtist) {
     let idToRemove = item.id;
     this.filterList = this.filterList!.filter(item => item.id !== idToRemove);
-    if (isArtist(item)) {
+    if (this.isArtist(item)) {
       this.filterArtists = this.filterArtists!.filter(item => item.id !== idToRemove);
     }
-    else if (isTrack(item)) {
+    else if (this.isTrack(item)) {
       this.filterTracks = this.filterTracks!.filter(item => item.id !== idToRemove);
     }
 
@@ -124,11 +123,11 @@ export class RecommendationsPageComponent implements OnInit {
   }
 
   getTrack(item: TrackOrArtist) {
-    return (isTrack(item)) ? item : null;
+    return (this.isTrack(item)) ? item : null;
   }
 
   getArtist(item: TrackOrArtist) {
-    return (isArtist(item)) ? item : null;
+    return (this.isArtist(item)) ? item : null;
   }
 
   lowerArtistsFoundRange() {

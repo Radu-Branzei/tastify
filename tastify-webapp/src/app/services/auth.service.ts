@@ -20,8 +20,6 @@ export class AuthService {
 
   API_URL: string = 'http://localhost:9002/api/user/';
 
-  checkInterval: number = 1000;
-
   constructor(private userService: UserService, private http: HttpClient) { }
 
   redirectToAuthorization() {
@@ -43,9 +41,6 @@ export class AuthService {
         const expirationTime = new Date().getTime() + parseInt(expiresIn) * 1000;
         localStorage.setItem('tokenExpirationTime', expirationTime.toString());
       }
-    }
-    else {
-      console.log("No access token");
     }
     this.removeAccessTokenFromUrl();
   }
@@ -85,7 +80,6 @@ export class AuthService {
     let hasAccount: Boolean = true;
     this.http.get("http://localhost:9002/api/user/" + userId)
       .subscribe((data: any) => {
-        console.log(data.data.length);
         if (data.data.length > 0 || data == undefined) {
           hasAccount = true;
         }
@@ -94,14 +88,14 @@ export class AuthService {
         }
         if (!hasAccount) {
           this.createUser(this.userService.userData.id, this.userService.userData.display_name,
-            this.userService.userData.email, this.userService.userData.images[1].url, 0);
+            this.userService.userData.email, this.userService.userData.images[1].url, this.userService.userData.external_urls.spotify, this.userService.userData.followers.total, 0);
         }
         this.updateUserListeningInfo(this.userService.userData.id);
       });
   }
 
-  createUser(id: string, username: string, email: string, imageUrl: string, obscurityScore: number) {
-    const userDetails = { id, username, email, imageUrl, obscurityScore };
+  createUser(id: string, username: string, email: string, imageUrl: string, href: string, followers: number, obscurityScore: number) {
+    const userDetails = { id, username, email, imageUrl, href, followers, obscurityScore };
     this.http.post('http://localhost:9002/api/user/add', userDetails)
       .subscribe(response => {
       });
@@ -218,7 +212,7 @@ export class AuthService {
     let userData = this.getLoggedInUserData();
     const userDetails = {
       id: userData.id, username: userData.display_name,
-      email: userData.email, imageUrl: userData.images[1].url, obscurityScore: obscurityScore
+      email: userData.email, imageUrl: userData.images[1].url, href: userData.external_urls.spotify, followers: userData.followers.total, obscurityScore: obscurityScore
     };
     this.http.put(`http://localhost:9002/api/user/update`, userDetails)
       .subscribe(response => {
@@ -270,19 +264,4 @@ export class AuthService {
           });
       });
   }
-
-  // fetchToken() {
-  //   var authParameters = {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     },
-  //     body: 'grant_type=client_credentials&client_id=' + this.CLIENT_ID + '&client_secret=' + this.CLIENT_SECRET
-  //   }
-
-  //   fetch(this.TOKEN_URL, authParameters)
-  //     .then(result => result.json())
-  //     .then(data => this.access_token = data.access_token)
-  //     .catch(error => console.error('Error fetching token: ', error));
-  // }
 }

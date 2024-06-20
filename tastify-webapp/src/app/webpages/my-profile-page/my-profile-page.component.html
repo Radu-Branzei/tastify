@@ -10,8 +10,12 @@
                         }}</p>
                     <p class="user-obscurity-info">Obscurity: 0 - 100</p>
                 </div>
+                <div class="user-followers-container">
+                    <p class="user-followers">{{ currentUser!.followersCount }}</p>
+                    <p class="user-followers-info">Followers</p>
+                </div>
                 <div (click)="redirectToSpotifyPage()" class="spotify-link-image">
-                    <img src="../../../assets/images/spotify-logo-removebg-preview.png" alt="">
+                    <img src="../../../assets/images/spotify-logo.png" alt="">
                 </div>
             </div>
         </div>
@@ -26,33 +30,69 @@
         </div>
     </div>
 
+    <div class="containers">
 
-    <h1 class="player-container-info">
-        Currently listening to:
-    </h1>
-    <div class="player-container" *ngIf="isConnected">
-        <div class="arrow-button" (click)="playPreviousTrack()">
-            <i class="fas fa-arrow-left"></i>
+        <div class="last-played-container">
+            <h1 class="last-played-info">
+                Previous track:
+            </h1>
+            <div *ngIf="recentlyPlayedTracks != null">
+                <div>
+                    <app-song-card [trackId]="recentTrack!.id" [imageUrl]="recentTrack!.imageUrl"
+                        [name]="recentTrack!.name" [artistList]="recentTrack!.artistList" [href]="recentTrack!.href"
+                        [uri]="recentTrack!.uri"></app-song-card>
+                </div>
+                <div *ngIf="recentlyPlayedTracks == null">
+                    <p class="error-message">Nothing here.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="play-pause-button" (click)="togglePlayPause()">
-            <i *ngIf="isPlaying; else playIcon" class="fas fa-pause"></i>
-            <ng-template #playIcon>
-                <i class="fas fa-play"></i>
-            </ng-template>
+        <div class="player-container">
+            <h1 class="player-container-info">
+                Currently listening to:
+            </h1>
+            <div class="player" *ngIf="isConnected">
+                <div>
+                    <app-song-card [trackId]="currentTrack!.id" [imageUrl]="currentTrack!.imageUrl"
+                        [name]="currentTrack!.name" [artistList]="currentTrack!.artistList" [href]="currentTrack!.href"
+                        [uri]="currentTrack!.uri"></app-song-card>
+                </div>
+                <div class="player-buttons">
+                    <div class="arrow-button" (click)="playPreviousTrack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="play-pause-button" (click)="togglePlayPause()">
+                        <i *ngIf="isPlaying; else playIcon" class="fas fa-pause"></i>
+                        <ng-template #playIcon>
+                            <i class="fas fa-play"></i>
+                        </ng-template>
+                    </div>
+                    <div class="arrow-button" (click)="playNextTrack()">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!isConnected">
+                <p class="error-message">Nothing here.</p>
+            </div>
         </div>
 
-        <div>
-            <app-song-card [trackId]="currentTrack!.id" [imageUrl]="currentTrack!.imageUrl" [name]="currentTrack!.name"
-                [artistList]="currentTrack!.artistList" [href]="currentTrack!.href"
-                [uri]="currentTrack!.uri"></app-song-card>
-        </div>
-
-        <div class="arrow-button" (click)="playNextTrack()">
-            <i class="fas fa-arrow-right"></i>
+        <div class="next-container">
+            <h1 class="next-info">
+                Next in queue:
+            </h1>
+            <div *ngIf="isConnected && usersQueue != null">
+                <div>
+                    <app-song-card [trackId]="nextTrack!.id" [imageUrl]="nextTrack!.imageUrl" [name]="nextTrack!.name"
+                        [artistList]="nextTrack!.artistList" [href]="nextTrack!.href"
+                        [uri]="nextTrack!.uri"></app-song-card>
+                </div>
+            </div>
+            <div *ngIf="!isConnected || (isConnected && usersQueue == null)">
+                <p class="error-message">Nothing here.</p>
+            </div>
         </div>
     </div>
-    <div *ngIf="!isConnected">
-        <p class="error-message">This user is not connected to Spotify.</p>
-    </div>
+
 </div>

@@ -21,6 +21,8 @@ export class PlayerBarComponent implements OnInit {
   isConnected: boolean = false;
   isPlaying: boolean | null = null;
   intervalId: any;
+  progressMs!: number;
+  totalMs!: number;
   progressBarWidth: number = 0;
 
   constructor(private router: Router, private userService: UserService, private authService: AuthService) { }
@@ -45,7 +47,6 @@ export class PlayerBarComponent implements OnInit {
         else {
           this.isPlaying = false;
         }
-        console.log(this.currentTrack);
       }
     }
   }
@@ -58,6 +59,17 @@ export class PlayerBarComponent implements OnInit {
       console.error('Error checking Spotify connection:', error);
       return false;
     }
+  }
+
+  convertMillisecondsToMinutesAndSeconds(milliseconds: number): string {
+    var totalSeconds = Math.floor(milliseconds / 1000);
+
+    var minutes = Math.floor(totalSeconds / 60);
+    var seconds = totalSeconds % 60;
+
+    var formattedSeconds = (seconds < 10 ? '0' : '') + seconds;
+
+    return minutes + ':' + formattedSeconds;
   }
 
   playPreviousTrack(): void {
@@ -86,11 +98,9 @@ export class PlayerBarComponent implements OnInit {
   }
 
   updateProgressBar(): void {
-    const progressMs = this.playbackState.progress_ms;
-    const totalMs = this.playbackState.item.duration_ms;
-    console.log(progressMs);
-    console.log(totalMs);
-    this.progressBarWidth = (progressMs / totalMs) * 100;
-    console.log(this.progressBarWidth);
+    this.progressMs = this.playbackState.progress_ms;
+    this.totalMs = this.playbackState.item.duration_ms;
+
+    this.progressBarWidth = (this.progressMs / this.totalMs) * 100;
   }
 }

@@ -35,7 +35,6 @@ export class TrackPageComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       this.trackId = params.get('track_id');
-      console.log('Track ID: ', this.trackId);
     });
 
     this.currentTrack = await this.userService.getTrackById(this.trackId);
@@ -48,10 +47,7 @@ export class TrackPageComponent implements OnInit {
     }
 
     this.trackAudioInfo = await this.userService.getTrackAudioInformation(this.trackId);
-    console.log(this.trackAudioInfo);
-
     this.usersListening = await this.userService.getUsersListeningToTrack(this.currentTrack!.id);
-    console.log(this.usersListening);
   }
 
   getPitchClass(key: number): string {

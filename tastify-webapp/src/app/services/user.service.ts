@@ -313,6 +313,8 @@ export class UserService {
               id: data.data[index].id,
               name: data.data[index].username,
               imageUrl: data.data[index].imageUrl,
+              href: data.data[index].href,
+              followersCount: data.data[index].followers,
               obscurityScore: data.data[index].obscurityScore
             }
             similarUsers.push(newUser);
@@ -340,6 +342,8 @@ export class UserService {
       id: data.id,
       name: data.username,
       imageUrl: data.imageUrl,
+      href: data.href,
+      followersCount: data.followers,
       obscurityScore: data.obscurityScore
     };
 
@@ -359,14 +363,14 @@ export class UserService {
               id: data.data[index].id,
               name: data.data[index].username,
               imageUrl: data.data[index].imageUrl,
+              href: data.data[index].href,
+              followersCount: data.data[index].followers,
               obscurityScore: data.data[index].obscurityScore
             }
             filteredUsers.push(newUser);
           }
         }
       });
-
-    console.log(filteredUsers);
 
     return filteredUsers;
   }
@@ -504,7 +508,7 @@ export class UserService {
       return playbackState;
     }
     catch (error) {
-      //console.log("User is currently not logged on Spotify.");
+      console.log("User is currently not logged on Spotify.");
       return null;
     }
   }
@@ -550,6 +554,56 @@ export class UserService {
 
   async skipToPrevious() {
     await fetch('https://api.spotify.com/v1/me/player/previous', this.getRequiredPOSTParameters());
+  }
+
+  async getPreviouslyPlayedTracks(): Promise<Track[] | null> {
+
+    let recentlyPlayedTracks: Track[] = [];
+
+    var fetchedData = await fetch('https://api.spotify.com/v1/me/player/recently-played', this.getRequiredGETParameters())
+      .then(result => result.json())
+      .then(data => { console.log(data); return data.items });
+
+    for (let index = 0; index < fetchedData.length; index++) {
+      let newTrack: Track = {
+        id: fetchedData[index].track.id,
+        name: fetchedData[index].track.name,
+        imageUrl: fetchedData[index].track.album.images[0].url,
+        href: fetchedData[index].track.external_urls.spotify,
+        artistList: fetchedData[index].track.artists,
+        popularityScore: fetchedData[index].track.popularity,
+        duration: fetchedData[index].track.duration_ms,
+        uri: fetchedData[index].track.uri
+      }
+      recentlyPlayedTracks.push(newTrack);
+    }
+
+    return recentlyPlayedTracks;
+  }
+
+  async getUsersQueue(): Promise<Track[] | null> {
+
+    let usersQueue: Track[] = [];
+
+    var fetchedData = await fetch('https://api.spotify.com/v1/me/player/queue', this.getRequiredGETParameters())
+      .then(result => result.json())
+      .then(data => { console.log(data); return data.queue });
+
+    for (let index = 0; index < fetchedData.length; index++) {
+      let newTrack: Track = {
+        id: fetchedData[index].id,
+        name: fetchedData[index].name,
+        imageUrl: fetchedData[index].album.images[0].url,
+        href: fetchedData[index].external_urls.spotify,
+        artistList: fetchedData[index].artists,
+        popularityScore: fetchedData[index].popularity,
+        duration: fetchedData[index].duration_ms,
+        uri: fetchedData[index].uri
+      }
+      usersQueue.push(newTrack);
+    }
+
+    return usersQueue;
   }
 }
 

@@ -46,6 +46,6 @@ export class AppComponent implements OnInit {
       return userData.images[0].url;
     }
 
-    return "../assets/images/tastify_logo.png";
+    return "../assets/images/tastify-logo.png";
   }
 }

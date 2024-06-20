@@ -44,7 +44,6 @@ export class SearchResultsPageComponent implements OnInit, OnChanges {
 
     this.route.paramMap.subscribe(params => {
       this.searchInput = params.get('search_input');
-      console.log('Search input:', this.searchInput);
       this.loadSearchDetails();
     });
   }

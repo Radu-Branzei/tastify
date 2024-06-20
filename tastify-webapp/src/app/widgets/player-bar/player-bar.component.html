@@ -12,8 +12,14 @@
 
         </div>
     </div>
+
     <div class="progress-bar">
         <div class="progress" [style.width.%]="progressBarWidth"></div>
+    </div>
+
+    <div class="progress-info">
+        <p>{{convertMillisecondsToMinutesAndSeconds(progressMs)}}/{{convertMillisecondsToMinutesAndSeconds(totalMs)}}
+        </p>
     </div>
 
     <div class="buttons">
@@ -27,8 +33,4 @@
             <i class="fas fa-forward"></i>
         </div>
     </div>
-
-    <!-- <div class="control-button shuffle-button">
-        <i class="fas fa-random"></i>
-    </div> -->
 </div>

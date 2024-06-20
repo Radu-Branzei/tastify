@@ -24,7 +24,7 @@ export class HeaderMenuComponent {
       return userData.images[0].url;
     }
 
-    return "../assets/images/tastify_logo.png";
+    return "../assets/images/tastify-logo.png";
   }
   isLoggedIn(): boolean {
     return this.authService.getAccessToken() != null;

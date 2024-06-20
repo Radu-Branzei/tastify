@@ -40,13 +40,10 @@ export class UserProfilePageComponent implements OnInit {
     this.currentUser = await this.userService.getUserById(this.userId);
     this.commonTracks = await this.userService.getCommonTracks(this.myData.id, this.userId!);
     this.commonArtists = await this.userService.getCommonArtists(this.myData.id, this.userId!);
-    // this.currentArtist = await this.userService.getArtistById(this.artistId);
-    // this.topTracks = await this.userService.getArtistsTopTracks(this.artistId);
-    // this.topAlbums = await this.userService.getAlbumsByArtist(this.artistId);
   }
 
   redirectToSpotifyPage() {
-    return;
+    window.open(this.currentUser!.href, '_blank');
   }
 
   lowerCommonTracksRange() {

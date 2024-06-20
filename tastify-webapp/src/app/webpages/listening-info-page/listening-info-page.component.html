@@ -28,14 +28,6 @@
             </div>
         </div>
 
-        <!-- <div
-            *ngIf="(topArtists!.length == 0 && informationType == 'artists') || (topTracks!.length == 0 && informationType == 'tracks')">
-            <h1 class="not-enough-data-message">
-                Not enough data has been collected for this timeline. <br> Listen to some more music or choose a
-                different one.
-            </h1>
-        </div> -->
-
         <div class="listening-info-grid">
             <div *ngIf="informationType == 'tracks'" class="track-card-grid">
                 <div *ngFor="let track of topTracks; let i = index" [@fadeIn]>

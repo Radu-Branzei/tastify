@@ -24,6 +24,10 @@ export class MyProfilePageComponent implements OnInit, OnDestroy {
   isPlaying: boolean | null = null;
   intervalId: any;
   currentUser!: User | null;
+  recentlyPlayedTracks!: Track[] | null;
+  recentTrack!: Track;
+  usersQueue!: Track[] | null;
+  nextTrack!: Track;
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
 
@@ -34,9 +38,14 @@ export class MyProfilePageComponent implements OnInit, OnDestroy {
 
     this.currentUser = await this.userService.getUserById(this.myData.id);
 
+    this.getRecentlyPlayedTracks();
+    this.getUsersQueue
     this.checkSpotifyConnection();
+
     this.intervalId = setInterval(() => {
       this.checkSpotifyConnection();
+      this.getRecentlyPlayedTracks();
+      this.getUsersQueue();
     }, 1000);
   }
 
@@ -46,7 +55,17 @@ export class MyProfilePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private async checkSpotifyConnection(): Promise<void> {
+  async getRecentlyPlayedTracks(): Promise<void> {
+    this.recentlyPlayedTracks = await this.userService.getPreviouslyPlayedTracks();
+    this.recentTrack = this.recentlyPlayedTracks![0];
+  }
+
+  async getUsersQueue(): Promise<void> {
+    this.usersQueue = await this.userService.getUsersQueue();
+    this.nextTrack = this.usersQueue![0];
+  }
+
+  async checkSpotifyConnection(): Promise<void> {
     this.isConnected = await this.isConnectedToSpotify();
     if (this.isConnected) {
       this.currentTrack = await this.userService.getCurrentlyPlayingTrack();
@@ -58,7 +77,6 @@ export class MyProfilePageComponent implements OnInit, OnDestroy {
         else {
           this.isPlaying = false;
         }
-        console.log(this.currentTrack);
       }
     }
   }

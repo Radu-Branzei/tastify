@@ -38,7 +38,6 @@ export class ObscurityPageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
 
     this.obscurityScore = await this.userService.calculateObscurityScore();
-    console.log(this.obscurityScore);
     if (this.obscurityScore > 0) {
       this.obscurityScore = 100 - this.obscurityScore;
       await this.authService.updateObscurityScore(this.obscurityScore);

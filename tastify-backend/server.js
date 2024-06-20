@@ -70,6 +70,8 @@ server.post("/api/user/add", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         imageUrl: req.body.imageUrl,
+        href: req.body.href,
+        followers: req.body.followers,
         obscurityScore: req.body.obscurityScore
     };
 
@@ -92,6 +94,8 @@ server.put("/api/user/update", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         obscurityScore: req.body.obscurityScore,
+        href: req.body.href,
+        followers: req.body.followers,
         imageUrl: req.body.imageUrl
     };
 

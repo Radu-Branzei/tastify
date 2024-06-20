@@ -10,12 +10,12 @@
                         }}</p>
                     <p class="user-obscurity-info">Obscurity: 0 - 100</p>
                 </div>
-                <!-- <div class="artist-followers-container">
-                    <p class="artist-followers">{{ currentArtist?.followersCount }}</p>
-                    <p class="artist-followers-info">Followers</p>
-                </div> -->
+                <div class="user-followers-container">
+                    <p class="user-followers">{{ currentUser!.followersCount }}</p>
+                    <p class="user-followers-info">Followers</p>
+                </div>
                 <div (click)="redirectToSpotifyPage()" class="spotify-link-image">
-                    <img src="../../../assets/images/spotify-logo-removebg-preview.png" alt="">
+                    <img src="../../../assets/images/spotify-logo.png" alt="">
                 </div>
             </div>
         </div>
